@@ -12,13 +12,13 @@ namespace Projeto_Xadrez
             {
                 for (int j = 0; j < tab.Colunas; j++) //Colunas
                 {
-                    if (tab.Peca(i, j) == null) //vai testar para verificar se é null a linha e coluna
+                    if (tab.Peca(i, j) == null) //vai testar para verificar se é null a linha e coluna, caso seja vai colocar o traço -
                     {
                         Console.Write("- ");
                     }
-                    else
+                    else //caso nao seja null vai imprimir a peça
                     {
-                        Console.WriteLine(tab.Peca(i, j) + " "); //vai imprimir a peça mais o espaço em branco
+                        Console.Write(tab.Peca(i, j) + " "); //vai imprimir a peça mais o espaço em branco
                     }
                 }
                 Console.WriteLine();

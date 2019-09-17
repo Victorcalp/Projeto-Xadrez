@@ -8,12 +8,12 @@
         public Posicao Posicao { get; set; }
         public Tabuleiros Tab { get; set; }
 
-        public Peca(Cor cor, Posicao posicao, Tabuleiros tab)
+        public Peca(Tabuleiros tab, Cor cor)
         {
-            QtdMovimentos = 0;
             Cor = cor;
-            Posicao = posicao;
             Tab = tab;
+            Posicao = null; //quando cria uma peça a posição é null
+            QtdMovimentos = 0; //vai começar com 0 movimentos
         }
     }
 }

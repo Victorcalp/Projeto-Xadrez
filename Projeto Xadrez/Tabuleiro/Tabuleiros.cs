@@ -20,5 +20,11 @@ namespace Tabuleiro
         {
             return Pecas[linha, coluna];
         }
+
+        public void ColocarPeca(Peca p, Posicao pos) //operação para colocar peça no tabuleiro
+        {
+            Pecas[pos.Linha, pos.Coluna] = p; //vai colocar a peça na linha e coluna
+            p.Posicao = pos; //vai informar a posição a peça
+        }
     }
 }
