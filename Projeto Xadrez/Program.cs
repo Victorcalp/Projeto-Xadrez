@@ -7,7 +7,8 @@ namespace Projeto_Xadrez
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            Tabuleiros tab = new Tabuleiros(8,8);
+            Tela.ImprimirTabuleiro(tab);
         }
     }
 }
