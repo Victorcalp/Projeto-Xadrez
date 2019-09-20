@@ -11,27 +11,41 @@ namespace Projeto_Xadrez
             try
             {
                 PartidaDeXadrez partida = new PartidaDeXadrez();
-
+                
                 while (!partida.Terminada)
                 {
-                    Console.Clear(); //limpar tela
-                    Tela.ImprimirTabuleiro(partida.Tab);
+                    try
+                    {
+                        Console.Clear(); //limpar tela
+                        Tela.ImprimirTabuleiro(partida.Tab);
+                        Console.WriteLine();
 
-                    Console.WriteLine();
-                    Console.Write("Origem: ");
-                    Posicao origem = Tela.LerPosicaoXadrez().ToPosicao(); //vai ler a posicao e converter a posiçao para matriz
+                        Console.WriteLine("Turno: " + partida.Turno);
+                        Console.WriteLine("Jogador Atual: " + partida.JogadorAtual);
 
-                    bool[,] PosicaoPossiveis = partida.Tab.Peca(origem).MovimentosPossiveis(); //vai verificar as posições possiveis da peca
+                        Console.WriteLine();
+                        Console.Write("Origem: ");
+                        Posicao origem = Tela.LerPosicaoXadrez().ToPosicao(); //vai ler a posicao e converter a posiçao para matriz
+                        partida.ValidarPosicaoDeOrigem(origem);
 
+                        bool[,] PosicaoPossiveis = partida.Tab.Peca(origem).MovimentosPossiveis(); //vai verificar as posições possiveis da peca
 
-                    Console.Clear(); //limpar tela
-                    Tela.ImprimirTabuleiro(partida.Tab, PosicaoPossiveis);
+                        //limpar tela
+                        Console.Clear();
+                        Tela.ImprimirTabuleiro(partida.Tab, PosicaoPossiveis);
 
+                        Console.WriteLine();
+                        Console.Write("Destino: ");
+                        Posicao destino = Tela.LerPosicaoXadrez().ToPosicao();
+                        partida.ValidarPosicaoDeDestino(origem, destino);
 
-                    Console.Write("Destino: ");
-                    Posicao destino = Tela.LerPosicaoXadrez().ToPosicao();
-
-                    partida.ExecutaMovimento(origem, destino);
+                        partida.RealizaJogada(origem, destino);
+                    }
+                    catch(TabuleiroException e)
+                    {
+                        Console.WriteLine(e.Message);
+                        Console.ReadLine();
+                    }
                 }
             }
             catch (TabuleiroException e)

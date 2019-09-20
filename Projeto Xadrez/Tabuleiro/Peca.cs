@@ -21,6 +21,29 @@
             QtdMovimentos++;
         }
 
+        public bool ExisteMovimentosPossiveis()
+        {
+            bool[,] mat = MovimentosPossiveis();
+            for(int i=0; i<Tab.Linhas; i++)
+            {
+                for(int j=0; j<Tab.Colunas; j++)
+                {
+                    //vai verificar se tem movimento possivel para a peca
+                    if (mat[i,j]) 
+                    {
+                        return true; 
+                    }
+                }
+            }
+            //caso nao retorne True, nao tem nenhum movimento possivel
+            return false;
+        }
+
+        public bool PodeMoverPara(Posicao destino)
+        {
+            return MovimentosPossiveis()[destino.Linha, destino.Coluna];
+        }
+
         public abstract bool[,] MovimentosPossiveis(); 
     }
 }
