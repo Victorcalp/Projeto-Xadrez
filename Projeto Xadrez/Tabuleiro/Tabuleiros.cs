@@ -21,7 +21,7 @@ namespace Tabuleiro
             return Pecas[linha, coluna];
         }
 
-        public Peca peca(Posicao pos)
+        public Peca Peca(Posicao pos)
         {
             return Pecas[pos.Linha, pos.Coluna];
         }
@@ -39,10 +39,25 @@ namespace Tabuleiro
             }
         }
 
+        public Peca RetirarPeca(Posicao pos)
+        {
+            if (Peca(pos) == null) //vai verificar se tem a peça na posição
+            {
+                return null;
+            }
+            else //caso passe do IF é porque tem uma peça
+            {
+                Peca aux = Peca(pos);
+                aux.Posicao = null; // vai retirar a peça do tabuleiro
+                Pecas[pos.Linha, pos.Coluna] = null; //vai zerar as posições
+                return aux;
+            }
+        }
+
         public bool ExistePeca(Posicao pos) //testa para verificar se existe uma peça em uma dada posição
         {
             ValidaPosicao(pos); //vai verificar se a posição existe, caso exista vai da continuidade, senão vai cortar o metodo e cair na exceção
-            return peca(pos) != null; //se retornar diferente de nulo é porque existe uma peça nessa posição
+            return Peca(pos) != null; //se retornar diferente de nulo é porque existe uma peça nessa posição
         }
 
         public bool PosicaoValida(Posicao pos) //vai verificar se tem mais Linha/Coluna que o tabuleiro

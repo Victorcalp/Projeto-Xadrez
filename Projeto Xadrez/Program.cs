@@ -10,14 +10,29 @@ namespace Projeto_Xadrez
         {
             try
             {
-                Tabuleiros tab = new Tabuleiros(8, 8); //quantidade de linhas e colunas
+                PartidaDeXadrez partida = new PartidaDeXadrez();
+
+                while (!partida.Terminada)
+                {
+                    Console.Clear(); //limpar tela
+                    Tela.ImprimirTabuleiro(partida.Tab);
+
+                    Console.WriteLine();
+                    Console.Write("Origem: ");
+                    Posicao origem = Tela.LerPosicaoXadrez().ToPosicao(); //vai ler a posicao e converter a posiçao para matriz
+
+                    bool[,] PosicaoPossiveis = partida.Tab.Peca(origem).MovimentosPossiveis(); //vai verificar as posições possiveis da peca
 
 
-                tab.ColocarPeca(new Torre(tab, Cor.Preta), new Posicao(0, 0));
-                tab.ColocarPeca(new Torre(tab, Cor.Branca), new Posicao(1, 3));
-                tab.ColocarPeca(new Rei(tab, Cor.Preta), new Posicao(1, 1));
+                    Console.Clear(); //limpar tela
+                    Tela.ImprimirTabuleiro(partida.Tab, PosicaoPossiveis);
 
-                Tela.ImprimirTabuleiro(tab);
+
+                    Console.Write("Destino: ");
+                    Posicao destino = Tela.LerPosicaoXadrez().ToPosicao();
+
+                    partida.ExecutaMovimento(origem, destino);
+                }
             }
             catch (TabuleiroException e)
             {

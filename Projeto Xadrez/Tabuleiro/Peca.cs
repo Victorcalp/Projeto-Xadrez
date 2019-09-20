@@ -1,6 +1,6 @@
 ﻿namespace Tabuleiro
 {
-    class Peca
+   abstract class Peca
     {
 
         public int QtdMovimentos { get; set; }
@@ -15,5 +15,12 @@
             Posicao = null; //quando cria uma peça a posição é null
             QtdMovimentos = 0; //vai começar com 0 movimentos
         }
+
+        public void IncrementarQtdMovimentos ()
+        {
+            QtdMovimentos++;
+        }
+
+        public abstract bool[,] MovimentosPossiveis(); 
     }
 }
