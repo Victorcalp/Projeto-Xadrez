@@ -18,7 +18,8 @@ namespace Xadrez
             return "" + Coluna + Linha;
         }
 
-        public Posicao ToPosicao() //vai converter a posição do Xadrez para uma posição interna da Matriz
+        //vai converter a posição do Xadrez para uma posição interna da Matriz
+        public Posicao ToPosicao() 
         {
             return new Posicao(8 - Linha, Coluna - 'a');
         }

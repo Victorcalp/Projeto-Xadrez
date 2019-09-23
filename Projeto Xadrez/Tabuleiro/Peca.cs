@@ -1,6 +1,6 @@
 ﻿namespace Tabuleiro
 {
-   abstract class Peca
+    abstract class Peca
     {
 
         public int QtdMovimentos { get; set; }
@@ -12,11 +12,13 @@
         {
             Cor = cor;
             Tab = tab;
-            Posicao = null; //quando cria uma peça a posição é null
-            QtdMovimentos = 0; //vai começar com 0 movimentos
+            //quando cria uma peça a posição é null
+            Posicao = null;
+            //vai começar com 0 movimentos
+            QtdMovimentos = 0;
         }
 
-        public void IncrementarQtdMovimentos ()
+        public void IncrementarQtdMovimentos()
         {
             QtdMovimentos++;
         }
@@ -24,14 +26,14 @@
         public bool ExisteMovimentosPossiveis()
         {
             bool[,] mat = MovimentosPossiveis();
-            for(int i=0; i<Tab.Linhas; i++)
+            for (int i = 0; i < Tab.Linhas; i++)
             {
-                for(int j=0; j<Tab.Colunas; j++)
+                for (int j = 0; j < Tab.Colunas; j++)
                 {
                     //vai verificar se tem movimento possivel para a peca
-                    if (mat[i,j]) 
+                    if (mat[i, j])
                     {
-                        return true; 
+                        return true;
                     }
                 }
             }
@@ -39,11 +41,27 @@
             return false;
         }
 
+        public int ExistePosicao(Posicao peca)
+        {
+            bool[,] mat = MovimentosPossiveis();
+            for (int i = 0; i < Tab.Linhas; i++)
+            {
+                for (int j = 0; j < Tab.Colunas; j++)
+                {
+                    //vai verificar se tem movimento possivel para a peca
+                    if (mat[i, j])
+                    {
+                        return true;
+                    }
+                }
+            }
+            return false;
+        }
         public bool PodeMoverPara(Posicao destino)
         {
             return MovimentosPossiveis()[destino.Linha, destino.Coluna];
         }
 
-        public abstract bool[,] MovimentosPossiveis(); 
+        public abstract bool[,] MovimentosPossiveis();
     }
 }

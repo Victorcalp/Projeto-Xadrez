@@ -16,12 +16,9 @@ namespace Projeto_Xadrez
                 {
                     try
                     {
-                        Console.Clear(); //limpar tela
-                        Tela.ImprimirTabuleiro(partida.Tab);
-                        Console.WriteLine();
+                        Console.Clear();
 
-                        Console.WriteLine("Turno: " + partida.Turno);
-                        Console.WriteLine("Jogador Atual: " + partida.JogadorAtual);
+                        Tela.ImprimirPartida(partida);
 
                         Console.WriteLine();
                         Console.Write("Origem: ");
@@ -44,6 +41,11 @@ namespace Projeto_Xadrez
                     catch(TabuleiroException e)
                     {
                         Console.WriteLine(e.Message);
+                        Console.ReadLine();
+                    }
+                    catch(IndexOutOfRangeException e)
+                    {
+                        Console.WriteLine("Posição não existe" + e.Message);
                         Console.ReadLine();
                     }
                 }

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Tabuleiro;
 using Xadrez;
 
@@ -6,15 +7,48 @@ namespace Projeto_Xadrez
 {
     class Tela
     {
+        public static void ImprimirPartida(PartidaDeXadrez partida)
+        {
+            Tela.ImprimirTabuleiro(partida.Tab);
+            Console.WriteLine();
+            ImprimirPecasCapturadas(partida);
+            Console.WriteLine();
+            Console.WriteLine();
+            Console.WriteLine("Turno: " + partida.Turno);
+            Console.WriteLine("Jogador Atual: " + partida.JogadorAtual);
+            
+        }
+
+        public static void ImprimirPecasCapturadas(PartidaDeXadrez partida)
+        {
+            Console.WriteLine("Peças Capturadas: ");
+            Console.Write("Brancas: ");
+            ImprimirConjunto(partida.PecasCapturadas(Cor.Branca));
+            Console.WriteLine();
+            Console.Write("Preta: ");
+            ImprimirConjunto(partida.PecasCapturadas(Cor.Preta));
+        }
+
+        public static void ImprimirConjunto(HashSet<Peca> conjunto)
+        {
+            foreach(Peca x in conjunto)
+            {
+                Console.Write(x + " ");
+            }
+        }
+
         //Imprimir o tabuleiro na tela
         public static void ImprimirTabuleiro(Tabuleiros tab)
         {
-            for (int i = 0; i < tab.Linhas; i++) //Linhas
+            //Linhas
+            for (int i = 0; i < tab.Linhas; i++)
             {
                 Console.Write(8 - i + " ");
-                for (int j = 0; j < tab.Colunas; j++) //Colunas
+                //Colunas
+                for (int j = 0; j < tab.Colunas; j++)
                 {
-                    ImprimirPeca(tab.Peca(i, j)); //vai imprimir a peça mais o espaço em branco
+                    //vai imprimir a peça mais o espaço em branco
+                    ImprimirPeca(tab.Peca(i, j));
                 }
                 Console.WriteLine();
             }
@@ -26,12 +60,15 @@ namespace Projeto_Xadrez
             ConsoleColor FundoOriginal = Console.BackgroundColor;
             ConsoleColor FundoAlterado = ConsoleColor.DarkGray;
 
-            for (int i = 0; i < tab.Linhas; i++) //Linhas
+            //Linhas
+            for (int i = 0; i < tab.Linhas; i++)
             {
                 Console.Write(8 - i + " ");
-                for (int j = 0; j < tab.Colunas; j++) //Colunas
+                //Colunas
+                for (int j = 0; j < tab.Colunas; j++)
                 {
-                    if (posicoesPossiveis[i, j])//se essas posicoes forem possiveis, vai pintar a tela
+                    //se essas posicoes forem possiveis, vai pintar a tela
+                    if (posicoesPossiveis[i, j])
                     {
                         Console.BackgroundColor = FundoAlterado;
                     }
@@ -39,7 +76,8 @@ namespace Projeto_Xadrez
                     {
                         Console.BackgroundColor = FundoOriginal;
                     }
-                    ImprimirPeca(tab.Peca(i, j)); //vai imprimir a peça mais o espaço em branco
+                    //vai imprimir a peça mais o espaço em branco
+                    ImprimirPeca(tab.Peca(i, j));
                     Console.BackgroundColor = FundoOriginal;
                 }
                 Console.WriteLine();
@@ -47,7 +85,9 @@ namespace Projeto_Xadrez
             Console.WriteLine("  A B C D E F G H");
             Console.BackgroundColor = FundoOriginal;
         }
-        public static PosicaXadrez LerPosicaoXadrez() //vai ler o teclado
+
+        //vai ler o teclado
+        public static PosicaXadrez LerPosicaoXadrez()
         {
             string x = Console.ReadLine();
             char coluna = x[0];
@@ -56,7 +96,8 @@ namespace Projeto_Xadrez
         }
         public static void ImprimirPeca(Peca peca)
         {
-            if (peca == null) //se nao tiver peca vai colocar o -
+            //se nao tiver peca vai colocar o -
+            if (peca == null)
             {
                 Console.Write("- ");
             }
@@ -64,14 +105,20 @@ namespace Projeto_Xadrez
             {
                 if (peca.Cor == Cor.Branca)
                 {
-                    Console.Write(peca + " "); //se a peça for branca vai imprimir ela branca
+                    //se a peça for branca vai imprimir ela branca
+                    Console.Write(peca + " ");
                 }
-                else //caso seja preta ou diferente de branca
+                //caso seja preta ou diferente de branca
+                else
                 {
-                    ConsoleColor aux = Console.ForegroundColor; //salva no aux a cor atual do console (branca)
-                    Console.ForegroundColor = ConsoleColor.Yellow; //muda a cor para amarelo
-                    Console.Write(peca + " ");  //imprime a peça
-                    Console.ForegroundColor = aux; //volta para a cor normal
+                    //salva no aux a cor atual do console (branca)
+                    ConsoleColor aux = Console.ForegroundColor;
+                    //muda a cor para amarelo
+                    Console.ForegroundColor = ConsoleColor.Yellow;
+                    //imprime a peça
+                    Console.Write(peca + " ");
+                    //volta para a cor normal
+                    Console.ForegroundColor = aux;
                 }
             }
         }
