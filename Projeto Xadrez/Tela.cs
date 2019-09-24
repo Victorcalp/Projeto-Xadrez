@@ -15,12 +15,22 @@ namespace Projeto_Xadrez
             Console.WriteLine();
             Console.WriteLine();
             Console.WriteLine("Turno: " + partida.Turno);
-            Console.WriteLine("Jogador Atual: " + partida.JogadorAtual);
-            if (partida.Xeque)
+
+            if (!partida.Terminada)
             {
-                Console.WriteLine("Você está em Xeque");
+
+                Console.WriteLine("Jogador Atual: " + partida.JogadorAtual);
+                if (partida.Xeque)
+                {
+                    Console.WriteLine("Você está em Xeque");
+                }
+                Console.WriteLine();
             }
-            Console.WriteLine();
+            else
+            {
+                Console.WriteLine("Xeque Mate");
+                Console.WriteLine("Vencedor: " + partida.JogadorAtual);
+            }
             
         }
 
