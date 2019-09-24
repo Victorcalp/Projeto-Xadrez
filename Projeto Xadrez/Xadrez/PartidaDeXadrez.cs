@@ -167,6 +167,11 @@ namespace Xadrez
         }
         public void ValidarPosicaoDeOrigem(Posicao origem)
         {
+           
+            if (!Tab.PosicaoValida(origem))
+            {
+                throw new TabuleiroException("Posição Invalida");
+            }
             if (Tab.Peca(origem) == null)
             {
                 throw new TabuleiroException("Não existe peça na posição escolhida!");
@@ -185,8 +190,12 @@ namespace Xadrez
 
         public void ValidarPosicaoDeDestino(Posicao origem, Posicao destino)
         {
+            if (!Tab.PosicaoValida(origem))
+            {
+                throw new TabuleiroException("Posição Invalida");
+            }
             //se a peça nao pode mover para a posicao de destino
-            if (!Tab.Peca(origem).PodeMoverPara(destino))
+            if (!Tab.Peca(origem).MovimentoPossivel(destino))
             {
                 throw new TabuleiroException("Posição de destino invalida");
             }

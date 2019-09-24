@@ -4,24 +4,24 @@ namespace Xadrez
 {
     class PosicaXadrez
     {
-        public char Coluna { get; set; }
-        public int Linha { get; set; }
+        public char Colunas { get; set; }
+        public int Linhas { get; set; }
 
         public PosicaXadrez(char coluna, int linha)
         {
-            Coluna = coluna;
-            Linha = linha;
+            Colunas = coluna;
+            Linhas = linha;
         }
 
         public override string ToString()
         {
-            return "" + Coluna + Linha;
+            return "" + Colunas + Linhas;
         }
 
         //vai converter a posição do Xadrez para uma posição interna da Matriz
         public Posicao ToPosicao() 
         {
-            return new Posicao(8 - Linha, Coluna - 'a');
+            return new Posicao(8 - Linhas, Colunas - 'a');
         }
 
     }

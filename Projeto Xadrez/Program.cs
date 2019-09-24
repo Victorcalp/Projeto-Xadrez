@@ -25,6 +25,7 @@ namespace Projeto_Xadrez
                         Console.Write("Origem: ");
                         Posicao origem = Tela.LerPosicaoXadrez().ToPosicao(); //vai ler a posicao e converter a posiçao para matriz
                         partida.ValidarPosicaoDeOrigem(origem);
+                        
 
                         //vai verificar as posições possiveis da peca e selecionar as posições
                         bool[,] PosicaoPossiveis = partida.Tab.Peca(origem).MovimentosPossiveis();

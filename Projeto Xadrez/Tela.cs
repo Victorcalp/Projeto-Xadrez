@@ -31,7 +31,7 @@ namespace Projeto_Xadrez
                 Console.WriteLine("Xeque Mate");
                 Console.WriteLine("Vencedor: " + partida.JogadorAtual);
             }
-            
+
         }
 
         public static void ImprimirPecasCapturadas(PartidaDeXadrez partida)
@@ -47,7 +47,7 @@ namespace Projeto_Xadrez
 
         public static void ImprimirConjunto(HashSet<Peca> conjunto)
         {
-            foreach(Peca x in conjunto)
+            foreach (Peca x in conjunto)
             {
                 Console.Write(x + " ");
             }
@@ -106,9 +106,19 @@ namespace Projeto_Xadrez
         public static PosicaXadrez LerPosicaoXadrez()
         {
             string x = Console.ReadLine();
-            char coluna = x[0];
-            int linha = int.Parse(x[1] + "");
-            return new PosicaXadrez(coluna, linha);
+
+
+            if (x == null || x == "" || x.Length!=2)
+            {
+                throw new TabuleiroException("Movimento invalido");
+            }
+            else
+            {
+                char coluna = x[0];
+                int linha = int.Parse(x[1] + "");
+
+                return new PosicaXadrez(coluna, linha);
+            }
         }
         public static void ImprimirPeca(Peca peca)
         {
