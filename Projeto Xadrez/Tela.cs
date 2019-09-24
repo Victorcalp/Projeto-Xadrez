@@ -16,6 +16,11 @@ namespace Projeto_Xadrez
             Console.WriteLine();
             Console.WriteLine("Turno: " + partida.Turno);
             Console.WriteLine("Jogador Atual: " + partida.JogadorAtual);
+            if (partida.Xeque)
+            {
+                Console.WriteLine("Você está em Xeque");
+            }
+            Console.WriteLine();
             
         }
 
@@ -25,8 +30,9 @@ namespace Projeto_Xadrez
             Console.Write("Brancas: ");
             ImprimirConjunto(partida.PecasCapturadas(Cor.Branca));
             Console.WriteLine();
-            Console.Write("Preta: ");
+            Console.Write("Pretas: ");
             ImprimirConjunto(partida.PecasCapturadas(Cor.Preta));
+            Console.WriteLine();
         }
 
         public static void ImprimirConjunto(HashSet<Peca> conjunto)

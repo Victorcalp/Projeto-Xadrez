@@ -12,6 +12,7 @@ namespace Xadrez
         public Cor JogadorAtual { get; private set; }
         private HashSet<Peca> Pecas;
         private HashSet<Peca> Capturadas;
+        public bool Xeque { get; private set; }
 
         public PartidaDeXadrez()
         {
@@ -20,6 +21,7 @@ namespace Xadrez
             //sempre começa a partida com a peça branca
             JogadorAtual = Cor.Branca;
             Terminada = false;
+            Xeque = false;
             Pecas = new HashSet<Peca>();
             Capturadas = new HashSet<Peca>();
             ColocarPecas();
@@ -48,6 +50,12 @@ namespace Xadrez
         {
             Peca p = Tab.RetirarPeca(destino);
             p.DecrementarQtdMovimentos();
+            if(pecaCapturada != null) //teve peça capturada
+            {
+                Tab.ColocarPeca(pecaCapturada, destino); //vai colocar a peça capturada de volta
+                Capturadas.Remove(pecaCapturada);
+            }
+            Tab.ColocarPeca(p, origem);
         }
         public void RealizaJogada(Posicao origem, Posicao destino)
         {
@@ -57,6 +65,15 @@ namespace Xadrez
             {
                 DesfazMovimento(origem, destino, PecaCapturada);
                 throw new TabuleiroException("você nao pode se colocar em xeque");
+            }
+            //vai verificar se o adversario está em xeque com o jogador atual
+            if (EstaEmXeque(Adversaria(JogadorAtual)))
+            {
+                Xeque = true;
+            }
+            else
+            {
+                Xeque = false;
             }
 
             Turno++;
@@ -85,6 +102,7 @@ namespace Xadrez
                     return x;
                 }
             }
+            //se retornar null é porque nao tem Rei em jogo
             return null;
         }
 
@@ -95,6 +113,7 @@ namespace Xadrez
             {
                 throw new TabuleiroException("Não tem rei da cor " + cor + "no tabuleiro");
             }
+
             foreach (Peca x in PecasEmJogo(Adversaria(cor)))
             {
                 bool[,] mat = x.MovimentosPossiveis();
@@ -185,12 +204,16 @@ namespace Xadrez
         {
             ColocarNovaPeca('c', 1, new Torre(Tab, Cor.Branca));
             ColocarNovaPeca('c', 2, new Torre(Tab, Cor.Branca));
-            ColocarNovaPeca('c', 3, new Torre(Tab, Cor.Branca));
-            ColocarNovaPeca('c', 4, new Torre(Tab, Cor.Branca));
-            ColocarNovaPeca('b', 1, new Torre(Tab, Cor.Preta));
-            ColocarNovaPeca('b', 2, new Torre(Tab, Cor.Preta));
-            ColocarNovaPeca('b', 3, new Torre(Tab, Cor.Preta));
-            ColocarNovaPeca('b', 4, new Torre(Tab, Cor.Preta));
+            ColocarNovaPeca('d', 2, new Torre(Tab, Cor.Branca));
+            ColocarNovaPeca('e', 2, new Torre(Tab, Cor.Branca));
+            ColocarNovaPeca('e', 1, new Torre(Tab, Cor.Branca));
+            ColocarNovaPeca('c', 7, new Torre(Tab, Cor.Preta));
+            ColocarNovaPeca('c', 8, new Torre(Tab, Cor.Preta));
+            ColocarNovaPeca('d', 7, new Torre(Tab, Cor.Preta));
+            ColocarNovaPeca('e', 7, new Torre(Tab, Cor.Preta));
+            ColocarNovaPeca('e', 8, new Torre(Tab, Cor.Preta));
+            ColocarNovaPeca('d', 1, new Rei(Tab, Cor.Branca));
+            ColocarNovaPeca('d', 8, new Rei(Tab, Cor.Preta));
         }
     }
 }
