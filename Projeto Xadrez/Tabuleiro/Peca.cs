@@ -22,6 +22,10 @@
         {
             QtdMovimentos++;
         }
+        public void DecrementarQtdMovimentos()
+        {
+            QtdMovimentos--;
+        }
 
         public bool ExisteMovimentosPossiveis()
         {
@@ -41,22 +45,6 @@
             return false;
         }
 
-        public int ExistePosicao(Posicao peca)
-        {
-            bool[,] mat = MovimentosPossiveis();
-            for (int i = 0; i < Tab.Linhas; i++)
-            {
-                for (int j = 0; j < Tab.Colunas; j++)
-                {
-                    //vai verificar se tem movimento possivel para a peca
-                    if (mat[i, j])
-                    {
-                        return true;
-                    }
-                }
-            }
-            return false;
-        }
         public bool PodeMoverPara(Posicao destino)
         {
             return MovimentosPossiveis()[destino.Linha, destino.Coluna];

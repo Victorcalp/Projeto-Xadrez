@@ -25,7 +25,7 @@ namespace Xadrez
             ColocarPecas();
         }
 
-        public void ExecutaMovimento(Posicao origem, Posicao destino)
+        public Peca ExecutaMovimento(Posicao origem, Posicao destino)
         {
             //vai tirar a peça de onde está e colocar em outro ponto
             Peca p = Tab.RetirarPeca(origem);
@@ -41,13 +41,69 @@ namespace Xadrez
                 //vai inserir nas pecas capturadas
                 Capturadas.Add(PecaCapturada);
             }
+            return PecaCapturada;
         }
 
+        public void DesfazMovimento (Posicao origem, Posicao destino, Peca pecaCapturada)
+        {
+            Peca p = Tab.RetirarPeca(destino);
+            p.DecrementarQtdMovimentos();
+        }
         public void RealizaJogada(Posicao origem, Posicao destino)
         {
-            ExecutaMovimento(origem, destino);
+            Peca PecaCapturada = ExecutaMovimento(origem, destino);
+
+            if (EstaEmXeque(JogadorAtual))
+            {
+                DesfazMovimento(origem, destino, PecaCapturada);
+                throw new TabuleiroException("você nao pode se colocar em xeque");
+            }
+
             Turno++;
             MudaJogador();
+        }
+
+        private Cor Adversaria(Cor cor)
+        {
+            if (cor == Cor.Branca)
+            {
+                return Cor.Preta;
+            }
+            else
+            {
+                return Cor.Branca;
+            }
+        }
+
+        private Peca Rei(Cor cor)
+        {
+            foreach (Peca x in PecasEmJogo(cor))
+            {
+                //vai verificar se a variavel da superclasse é uma instacia da subclasse
+                if (x is Rei)
+                {
+                    return x;
+                }
+            }
+            return null;
+        }
+
+        public bool EstaEmXeque(Cor cor)
+        {
+            Peca R = Rei(cor);
+            if(R == null)
+            {
+                throw new TabuleiroException("Não tem rei da cor " + cor + "no tabuleiro");
+            }
+            foreach (Peca x in PecasEmJogo(Adversaria(cor)))
+            {
+                bool[,] mat = x.MovimentosPossiveis();
+                if(mat[R.Posicao.Linha, R.Posicao.Coluna]) //verifica se está em xeque
+                {
+                    return true;
+                }
+            }
+            return false;
         }
 
         public void ValidarPosicaoDeOrigem(Posicao origem)
