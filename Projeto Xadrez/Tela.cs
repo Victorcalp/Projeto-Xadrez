@@ -40,9 +40,14 @@ namespace Projeto_Xadrez
             Console.Write("Brancas: ");
             ImprimirConjunto(partida.PecasCapturadas(Cor.Branca));
             Console.WriteLine();
+
+            ConsoleColor aux = Console.ForegroundColor;
             Console.Write("Pretas: ");
+            Console.ForegroundColor = ConsoleColor.DarkYellow;
             ImprimirConjunto(partida.PecasCapturadas(Cor.Preta));
+            Console.ForegroundColor = aux;
             Console.WriteLine();
+
         }
 
         public static void ImprimirConjunto(HashSet<Peca> conjunto)
@@ -108,7 +113,7 @@ namespace Projeto_Xadrez
             string x = Console.ReadLine();
 
 
-            if (x == null || x == "" || x.Length!=2)
+            if (x == null || x == "" || x.Length != 2)
             {
                 throw new TabuleiroException("Movimento invalido");
             }
@@ -140,7 +145,7 @@ namespace Projeto_Xadrez
                     //salva no aux a cor atual do console (branca)
                     ConsoleColor aux = Console.ForegroundColor;
                     //muda a cor para amarelo
-                    Console.ForegroundColor = ConsoleColor.Yellow;
+                    Console.ForegroundColor = ConsoleColor.DarkYellow;
                     //imprime a peça
                     Console.Write(peca + " ");
                     //volta para a cor normal
