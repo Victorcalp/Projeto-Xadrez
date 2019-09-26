@@ -17,7 +17,7 @@ namespace Xadrez
         private bool ExisteInimigo(Posicao pos)
         {
             Peca p = Tab.Peca(pos); //pega a posicao da peça
-            return p == null || p.Cor != Cor; //só vai pode mover quando a casa estiver vazia e a cor da peça for diferente 
+            return p != null && p.Cor != Cor; //só vai pode mover quando a casa estiver vazia e a cor da peça for diferente 
         }
 
         private bool Livre(Posicao pos)
